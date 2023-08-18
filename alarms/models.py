@@ -31,7 +31,7 @@ class AlarmCode(models.Model):
 class Alarm(models.Model):
     time = models.DateTimeField()
     # alarm_code: models.ForeignKey(AlarmCodes, on_delete=models.SET_NULL)
-    alarm_code: models.PositiveSmallIntegerField()
+    alarm_code = models.PositiveSmallIntegerField(db_column="alarm_code_id")
     # TO IMPROVE: foreign key
     producer_id = models.PositiveSmallIntegerField()
 
