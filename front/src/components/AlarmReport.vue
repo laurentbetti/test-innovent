@@ -2,16 +2,15 @@
 export default {
   data() {
     return {
-      items: [
-        { id: 1, name: 'Pouet' },
-        { id: 2, name: 'Plouf' }
-      ]
+      items: []
     }
   },
 
   async created() {
-    const res = await fetch('http://localhost:8000/alarms/report')
-    console.log('res', res)
+    const res = await fetch('http://127.0.0.1:8000/alarms/report/', {
+      mode: 'cors'
+    })
+    this.items = await res.json()
   }
 }
 </script>
@@ -19,6 +18,6 @@ export default {
 <template>
   <main><h1>This is the Alarm Report</h1></main>
   <li v-for="i in items" :key="i.id">
-    <a>Name: {{ i.name }}</a>
+    <pre>{{ JSON.stringify(i) }}</pre>
   </li>
 </template>

@@ -9,6 +9,6 @@ def report(request):
         .annotate(alarm_count=Count("time"))
         .order_by("producer_id", "-alarm_count")
     )
-    print(data)
+
     # TODO: see if there is a better alternative that safe=False
     return JsonResponse(data, safe=False)
