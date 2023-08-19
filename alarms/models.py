@@ -12,7 +12,6 @@ class AlarmCode(models.Model):
     enabled = models.BooleanField()
     # TO IMPROVE: foreign key
     producer_type_id = models.PositiveSmallIntegerField()
-
     created_at = models.DateTimeField()
     # TO IMPROVE: foreign key
     created_by_id = models.PositiveSmallIntegerField()
@@ -25,7 +24,7 @@ class AlarmCode(models.Model):
         db_table = "api_alarmcode"
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Alarm(models.Model):
@@ -34,7 +33,6 @@ class Alarm(models.Model):
     alarm_code = models.PositiveSmallIntegerField(db_column="alarm_code_id")
     # TO IMPROVE: foreign key
     producer_id = models.PositiveSmallIntegerField()
-
     # TODO: remove priamry_key=True once we have proper ids
     created_at = models.DateTimeField(primary_key=True)
     # TO IMPROVE: foreign key
