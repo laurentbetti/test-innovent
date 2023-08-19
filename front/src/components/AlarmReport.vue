@@ -7,6 +7,11 @@ export default {
         { id: 2, name: 'Plouf' }
       ]
     }
+  },
+
+  async created() {
+    const res = await fetch('http://localhost:8000/alarms/report')
+    console.log('res', res)
   }
 }
 </script>
