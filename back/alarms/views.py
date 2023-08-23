@@ -1,5 +1,5 @@
 from django.db.models import Count
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from alarms.models import Alarm
 
 

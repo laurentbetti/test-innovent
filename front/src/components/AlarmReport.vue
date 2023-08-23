@@ -1,5 +1,9 @@
 <script>
+import AlarmItem from './AlarmItem.vue'
 export default {
+  components: {
+    AlarmItem
+  },
   data() {
     return {
       items: []
@@ -16,8 +20,27 @@ export default {
 </script>
 
 <template>
-  <main><h1>This is the Alarm Report</h1></main>
-  <li v-for="i in items" :key="i.id">
-    <pre>{{ JSON.stringify(i) }}</pre>
-  </li>
+  <main>
+    <h1 class="">Alarm report</h1>
+    <table class="table table-bordered align-middle caption-top">
+      <caption>
+        Top 2 alarm events by publisher
+      </caption>
+      <thead class="table-light">
+        <tr>
+          <th>Publisher</th>
+          <th>Top 2 alarms (# occurences)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <AlarmItem />
+      </tbody>
+    </table>
+  </main>
 </template>
+
+<style>
+main {
+  max-width: 600px;
+}
+</style>
