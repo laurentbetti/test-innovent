@@ -1,8 +1,5 @@
 from django.db import models
 
-# TODO: put common fields in a parent class?
-
-
 class AlarmCode(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)

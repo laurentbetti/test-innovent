@@ -7,20 +7,36 @@ export default {
 </script>
 
 <template>
-  <tr class="table-group-divider">
-    <td :row-span="producer.alarms.length">{{ producer.name }}</td>
+  <tr class="first-alarm-row">
+    <td :rowspan="producer.alarms.length || 1">
+      {{ producer.name }}
+    </td>
     <td>
       <span v-if="producer.alarms.length > 0">
-        <span class="small">🥇</span>{{ producer.alarms[0].name }} ({{ producer.alarms[0].count }})
+        🥇&nbsp;{{ producer.alarms[0].name }}&nbsp;&nbsp;
+        <span class="badge bg-primary">{{ producer.alarms[0].count }}</span>
       </span>
-      <span v-else>No alarm reported</span>
+      <span v-else class="badge bg-secondary">No alarm reported</span>
     </td>
   </tr>
 
-  <tr v-if="producer.alarms.length > 1">
-    <td></td>
+  <tr v-if="producer.alarms.length > 1" class="second-alarm-row">
     <td>
-      <span class="small">🥈</span>{{ producer.alarms[1].name }} ({{ producer.alarms[1].count }})
+      🥈&nbsp;{{ producer.alarms[1].name }}&nbsp;&nbsp;<span class="badge bg-primary">{{
+        producer.alarms[1].count
+      }}</span>
     </td>
   </tr>
 </template>
+
+<style>
+.first-alarm-row,
+.first-alarm-row td {
+  border-bottom: none;
+}
+
+.second-alarm-row,
+.seconde-alarm-row td {
+  border-top: 1px dashed var(--bs-border-color);
+}
+</style>

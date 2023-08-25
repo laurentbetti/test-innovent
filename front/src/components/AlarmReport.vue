@@ -63,7 +63,7 @@ export default {
       <thead class="table-light">
         <tr>
           <th>Publisher</th>
-          <th>Top 2 alarms (# occurences)</th>
+          <th>Top 2 alarms (# triggers)</th>
         </tr>
       </thead>
       <tbody>

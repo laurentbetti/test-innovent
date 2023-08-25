@@ -40,6 +40,4 @@ def report(request):
             producer_top_two_alarms,
         )
     )
-
-    # TODO: see if there is a better alternative that safe=False
     return JsonResponse(formatted_producer_alarms, safe=False)
