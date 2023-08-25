@@ -5,8 +5,7 @@ from alarms.models import Producer
 
 def report(request):
     producer_alarms = list(
-        Producer.objects.select_related("alarm__alarm_code")
-        .values(
+        Producer.objects.values(
             "id", "display_name", "alarm__alarm_code__id", "alarm__alarm_code__name"
         )
         .annotate(trigger_count=Count("alarm__alarm_code__id"))
