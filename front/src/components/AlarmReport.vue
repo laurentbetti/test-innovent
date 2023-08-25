@@ -1,12 +1,46 @@
 <script>
-import AlarmItem from './AlarmItem.vue'
+import ProducerAlarmReport from './ProducerAlarmReport.vue'
 export default {
   components: {
-    AlarmItem
+    ProducerAlarmReport
   },
   data() {
     return {
-      items: []
+      producerAlarms: []
+    }
+  },
+
+  computed: {
+    producerReports() {
+      let prevProducerId = null
+      const res = []
+      for (const pa of this.producerAlarms) {
+        if (prevProducerId && pa.id === prevProducerId) {
+          res[res.length - 1].alarms.push({
+            id: pa.alarmCodeId,
+            name: pa.alarmCodeName,
+            count: pa.alarmCount
+          })
+        } else {
+          const alarms = pa.alarmCodeId
+            ? [
+                {
+                  id: pa.alarmCodeId,
+                  name: pa.alarmCodeName,
+                  count: pa.alarmCount
+                }
+              ]
+            : []
+          res.push({
+            id: pa.id,
+            name: pa.name,
+            alarms
+          })
+          prevProducerId = pa.id
+        }
+      }
+
+      return res
     }
   },
 
@@ -14,7 +48,7 @@ export default {
     const res = await fetch('http://127.0.0.1:8000/alarms/report/', {
       mode: 'cors'
     })
-    this.items = await res.json()
+    this.producerAlarms = await res.json()
   }
 }
 </script>
@@ -33,7 +67,11 @@ export default {
         </tr>
       </thead>
       <tbody>
-        <AlarmItem />
+        <ProducerAlarmReport
+          v-for="producer in producerReports"
+          :key="producer.id"
+          :producer="producer"
+        ></ProducerAlarmReport>
       </tbody>
     </table>
   </main>
