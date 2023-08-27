@@ -1,5 +1,5 @@
 <script>
-import AlarmReport from './components/AlarmReport.vue'
+import AlarmReport from './components/ProducerAlarmReportList.vue'
 
 export default {
   components: {

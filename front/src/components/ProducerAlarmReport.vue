@@ -30,8 +30,8 @@ export default {
 </template>
 
 <style>
-.first-alarm-row,
-.first-alarm-row td {
+.first-alarm-row:not(:last-of-type),
+.first-alarm-row:not(:last-of-type) td {
   border-bottom: none;
 }
 

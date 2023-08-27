@@ -4,10 +4,20 @@ from alarms.models import Producer
 
 
 def report(request):
+    page = int(request.GET.get("page", 1))
+    size = int(request.GET.get("size", 10))
+    print("page=", page)
+    start = (page - 1) * size
+    end = page * size
+    print(f"start={start}, end={end}")
+
+    producer_ids = Producer.objects.order_by("display_name").values("id")[start:end]
+
     producer_alarms = (
         Producer.objects.values(
             "id", "display_name", "alarm__alarm_code__id", "alarm__alarm_code__name"
         )
+        .filter(id__in=producer_ids)
         .annotate(alarm_count=Count("alarm__alarm_code__id"))
         .order_by("display_name", "-alarm_count")
     )

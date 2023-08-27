@@ -6,15 +6,28 @@ export default {
   },
   data() {
     return {
-      producerAlarms: []
+      producerAlarms: [],
+      page: 1
     }
   },
 
   async created() {
-    const res = await fetch('http://127.0.0.1:8000/alarms/report/', {
-      mode: 'cors'
-    })
-    this.producerAlarms = await res.json()
+    this.producerAlarms = await this.fetchData()
+  },
+
+  methods: {
+    async fetchData() {
+      const res = await fetch(`http://127.0.0.1:8000/alarms/report?page=${this.page}`, {
+        mode: 'cors'
+      })
+      return await res.json()
+    },
+
+    async loadMore() {
+      this.page++
+      const newData = await this.fetchData()
+      this.producerAlarms = [...this.producerAlarms, ...newData]
+    }
   }
 }
 </script>
@@ -40,6 +53,7 @@ export default {
         ></ProducerAlarmReport>
       </tbody>
     </table>
+    <button class="btn btn-primary" @click="loadMore">Voir plus</button>
   </main>
 </template>
 
