@@ -1,9 +1,9 @@
 from django.db.models import Count
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from alarms.models import Producer
 
 
-def report(request):
+def get_producer_alarms_report(request):
     page = int(request.GET.get("page", 1))
     size = int(request.GET.get("size", 10))
     print("page=", page)
@@ -48,6 +48,16 @@ def report(request):
                 }
             )
             prev_producer_id = pa["id"]
-            nb_alarms = 1
+    return producers_with_top_two_alarms
 
-    return JsonResponse(producers_with_top_two_alarms, safe=False)
+
+def report(request):
+    return JsonResponse(get_producer_alarms_report(request), safe=False)
+
+
+def report_debug(request):
+    return HttpResponse(
+        "<html><body><h1>Pouet</h1><pre>"
+        + str(get_producer_alarms_report(request))
+        + "</pre></body></html>"
+    )
