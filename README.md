@@ -32,7 +32,17 @@ _J'ai utilisé Vue 3 car c'était plus facile de trouver de la doc à jour, mais
 
 se rendre sur `http://localhost:5173/` (ie, URL affichée dans le retour de la commande `yarn dev`)
 
-Remarque de perf : dans du code que je n'ai pas commité, j'utilise `Django-debug-toolbar` qui me donne les stats suivantes :
+## Remarques de perf :
+
+(au début je n'avais pas commité le code relatif à l'utilisation de django-debug-toolbar, mais
+j'ai fini par le faire, ça pouvait être intéressant pour toi aussi. Notamment en visitant cette url : `http://localhost:8000/alarms/report-debug/?page=1`)
+
+### Avant introduction pagination :
 
 - Nb de query sur la DB = 1
 - Temps total de traitement de la requête HTTP = 138ms (dont 103ms sur la DB)
+
+### Après intro de la pagination
+
+- Nb de query sur la DB = 1
+- Temps total de traitement de la requête HTTP = 75ms (dont 30ms sur la DB), par page chargée (par paquet de 10 producers)
